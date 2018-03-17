@@ -52,10 +52,19 @@ class BurgerBuilder extends Component {
   }
 
   render() {
+    //creating a copy of the ing portion of state (immubality)
+    const disabledInfo = {
+      ...this.state.ingredients
+    };
+    //replace number of ingredients here with true or false
+    for (let key in disabledInfo) {
+      disabledInfo[key] = disabledInfo[key] <= 0;
+    }
     return (
       <Aux>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls 
+          disabled={disabledInfo}
           ingredientAdded={this.addIngredientHandler} 
           ingredientRemoved={this.removeIngredientHandler} />
       </Aux>
