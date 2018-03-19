@@ -22,7 +22,8 @@ class BurgerBuilder extends Component {
       meat: 0
     },
     totalPrice: 5,
-    purchasable: false
+    purchasable: false,
+    purchasing: false
   }
 
   updatePurchasableState(ingredients) {
@@ -70,6 +71,14 @@ class BurgerBuilder extends Component {
     this.updatePurchasableState(updatedIngredients);
   }
 
+  //wont work like this if the method is triggered thru an event
+  // purchaseHandler() {
+  //   this.setState({purchasing: true});
+  // }
+  purchaseHandler = () =>  {
+    this.setState({ purchasing: true });
+  }
+
   render() {
     //creating a copy of the ing portion of state (immubality)
     const disabledInfo = {
@@ -81,7 +90,7 @@ class BurgerBuilder extends Component {
     }
     return (
       <Aux>
-        <Modal>
+        <Modal show={this.state.purchasing}>
           <OrderSummary ingredients={this.state.ingredients}/>
         </Modal>
         <Burger ingredients={this.state.ingredients} />
@@ -89,6 +98,7 @@ class BurgerBuilder extends Component {
           disabled={disabledInfo}
           ingredientAdded={this.addIngredientHandler} 
           ingredientRemoved={this.removeIngredientHandler} 
+          ordered={this.purchaseHandler}
           price={`$${this.state.totalPrice}`} 
           purchasable={this.state.purchasable} />
       </Aux>
