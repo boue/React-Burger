@@ -79,6 +79,10 @@ class BurgerBuilder extends Component {
     this.setState({ purchasing: true });
   }
 
+  purchaseCancelHandler = () => {
+    this.setState({ purchasing: false });   
+  }
+
   render() {
     //creating a copy of the ing portion of state (immubality)
     const disabledInfo = {
@@ -90,7 +94,9 @@ class BurgerBuilder extends Component {
     }
     return (
       <Aux>
-        <Modal show={this.state.purchasing}>
+        <Modal 
+          modalClosed={this.purchaseCancelHandler}
+          show={this.state.purchasing} >
           <OrderSummary ingredients={this.state.ingredients}/>
         </Modal>
         <Burger ingredients={this.state.ingredients} />
